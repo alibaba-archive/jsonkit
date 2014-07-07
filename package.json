@@ -1,0 +1,32 @@
+{
+  "name": "jsonkit",
+  "description": "Tool set for JSON object",
+  "author": [
+    "Yan Qing <admin@zensh.com>"
+  ],
+  "version": "0.1.0",
+  "main": "jsonkit.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:teambition/jsonkit.git"
+  },
+  "homepage": "https://github.com/teambition/jsonkit",
+  "keywords": [
+    "json",
+    "jsonit",
+    "union",
+    "intersect"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-nodeunit": "~0.2.2",
+    "grunt-contrib-uglify": "~0.2.4",
+    "jsbench": ">=0.3.x"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}
