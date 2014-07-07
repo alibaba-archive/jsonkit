@@ -26,3 +26,15 @@ console.log('union', JSONKit.union(d, [0, 0, {a: 0}]));
 
 var e = [0, '', {a: 0, b: false, c: null}];
 console.log('intersect', JSONKit.intersect(e, [9, 9, {a: 9, c: {}}]));
+
+e = {a: {}, b: []};
+console.log('intersect', JSONKit.intersect(e, {a: {a: 1, b:2, c: [1, 2]}, b: [1, 2, {a: 3}]}));
+
+e = {a: [0]};
+console.log('intersect', JSONKit.intersect(e, {a: [1, 2, '3', 4]}));
+
+e = {a: [0, 0, 0, 0, 0]};
+console.log('intersect', JSONKit.intersect(e, {a: [1, 2, '3', 4]}));
+
+e = {a: null};
+console.log('intersect', JSONKit.intersect(e, {a: {a: 1, b:2, c: [1, 2]}}));

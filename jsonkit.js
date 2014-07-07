@@ -16,7 +16,7 @@
 }(this, function () {
   'use strict';
 
-  var JSONKit = {}, BREAKER = {}, ARRAY = {}, OBJECT = {},
+  var BREAKER = {}, ARRAY = {}, OBJECT = {},
     maxDepth = 20,
     toString = Object.prototype.toString,
     hasOwnProperty = Object.prototype.hasOwnProperty,
@@ -189,15 +189,17 @@
     return array;
   }
 
-  JSONKit.NAME = 'JSONKit';
-  JSONKit.VERSION = '0.1.0';
-  JSONKit.each = each;
-  JSONKit.union = union;
-  JSONKit.intersect = intersect;
-  JSONKit.removeItem = removeItem;
-  JSONKit.uniqueArray = uniqueArray;
-  JSONKit.setMaxDepth = function (depth) {
-    maxDepth = depth >= 5 && depth <= 1000 ? +depth : 20;
+  return {
+    NAME: 'JSONKit',
+    VERSION: '0.1.1',
+    each: each,
+    union: union,
+    intersect: intersect,
+    removeItem: removeItem,
+    uniqueArray: uniqueArray,
+    setMaxDepth: function (depth) {
+      maxDepth = depth >= 5 && depth <= 1000 ? +depth : 20;
+    }
   };
-  return JSONKit;
+
 }));
