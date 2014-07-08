@@ -16,8 +16,7 @@
 }(this, function () {
   'use strict';
 
-  var BREAKER = {}, ARRAY = {}, OBJECT = {},
-    maxDepth = 20,
+  var maxDepth = 20, BREAKER = {}, ARRAY = [], OBJECT = {},
     toString = Object.prototype.toString,
     hasOwnProperty = Object.prototype.hasOwnProperty,
     isArray = Array.isArray || function (obj) {
@@ -70,17 +69,17 @@
   }
 
   function union(a) {
-    var b = arguments[1], checkA = checkObj(a);
+    var b = arguments[1], check = checkObj(a);
 
-    if (checkA !== ARRAY && checkA !== OBJECT) throw new Error('Not a array or object.');
+    if (check !== ARRAY && check !== OBJECT) throw new Error('Not a array or object.');
     if (arguments.length === 1) {
       b = a;
       a = new a.constructor();
     }
 
-    _union(a, b, checkA, maxDepth);
+    _union(a, b, check, maxDepth);
     for (var i = 2, l = arguments.length; i < l; i++) {
-      _union(a, arguments[i], checkA, maxDepth);
+      _union(a, arguments[i], check, maxDepth);
     }
     return a;
   }
@@ -100,14 +99,14 @@
   }
 
   function intersect(a, b) {
-    var checkA = checkObj(a);
+    var check = checkObj(a);
 
-    if (checkA !== ARRAY && checkA !== OBJECT) throw new Error('Not a array or object.');
+    if (check !== ARRAY && check !== OBJECT) throw new Error('Not a array or object.');
     if (arguments.length < 2) throw new Error('Must have 2 arguments or more.');
 
     for (var i = 1, l = arguments.length; i < l; i++) {
-      if (checkA !== checkObj(arguments[i])) throw new Error('Arguments\'s type must be consistent.');
-      _intersect(a, arguments[i], checkA, maxDepth);
+      if (check !== checkObj(arguments[i])) throw new Error('Arguments\'s type must be consistent.');
+      _intersect(a, arguments[i], check, maxDepth);
     }
     return a;
   }
