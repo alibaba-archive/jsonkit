@@ -1,4 +1,4 @@
-JSONKit v0.1.1 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
+JSONKit v0.1.2 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
 ====
 Tool set for JSON object.
 
