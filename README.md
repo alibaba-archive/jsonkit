@@ -1,4 +1,4 @@
-JSONKit v0.1.2 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
+JSONKit v0.2.0 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
 ====
 Tool set for JSON object.
 
@@ -76,6 +76,18 @@ Tool set for JSON object.
 
 		e = {a: null};
 		console.log('intersect', JSONKit.intersect(e, {a: {a: 1, b:2, c: [1, 2]}}));
+
+### JSONKit.isEqual(a, b[, depth])
+
+对 a, b 进行深度对比，判断他们是否相等。
+
++ **a:** Any
++ **b:** Any
++ **depth:** 可选，指定比较的最大深度，超过时将抛出错误，默认为 20。
+
+		var a = {a: 1, b: 2, c: 3, d: [1, 2, 3], e: null};
+		var b = {a: 1, b: 2, c: 3, d: [1, 2, 3], e: null};
+		console.log('isEqual', JSONKit.isEqual(a, b));
 
 ### JSONKit.removeItem(list, item, arrayLike)
 

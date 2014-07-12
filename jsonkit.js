@@ -59,28 +59,28 @@
   function checkObj(obj) {
     var type = typeof obj;
 
-    if (type === 'function') return obj.toString();
-    else if (obj && type === 'object') {
+    if (obj && type === 'object') {
       if (isArray(obj)) return ARRAY;
       else if (isObject(obj)) return OBJECT;
       else return obj.toString();
-    }
+    } else if (type === 'function') return obj.toString();
     return obj;
   }
 
   function union(a) {
     var b = arguments[1], check = checkObj(a);
 
-    if (check !== ARRAY && check !== OBJECT) throw new Error('Not a array or object.');
-    if (arguments.length === 1) {
-      b = a;
-      a = new a.constructor();
-    }
+    if (check === ARRAY || check === OBJECT) {
+      if (arguments.length === 1) {
+        b = a;
+        a = check === ARRAY ? [] : {};
+      }
 
-    _union(a, b, check, maxDepth);
-    for (var i = 2, l = arguments.length; i < l; i++) {
-      _union(a, arguments[i], check, maxDepth);
-    }
+      _union(a, b, check, maxDepth);
+      for (var i = 2, l = arguments.length; i < l; i++) {
+        _union(a, arguments[i], check, maxDepth);
+      }
+    } else throw new Error('Not a array or object.');
     return a;
   }
 
@@ -91,7 +91,7 @@
     each(b, function (x, i) {
       var checkX = checkObj(x);
       if (checkX === ARRAY || checkX === OBJECT) {
-        if (checkX !== checkObj(a[i])) a[i] = new x.constructor();
+        if (checkX !== checkObj(a[i])) a[i] = checkX === ARRAY ? [] : {};
         _union(a[i], x, checkX, depth);
       } else a[i] = checkX;
     }, null, check === ARRAY);
@@ -101,13 +101,14 @@
   function intersect(a, b) {
     var check = checkObj(a);
 
-    if (check !== ARRAY && check !== OBJECT) throw new Error('Not a array or object.');
-    if (arguments.length < 2) throw new Error('Must have 2 arguments or more.');
+    if (check === ARRAY || check === OBJECT) {
+      if (arguments.length < 2) throw new Error('Must have 2 arguments or more.');
 
-    for (var i = 1, l = arguments.length; i < l; i++) {
-      if (check !== checkObj(arguments[i])) throw new Error('Arguments\'s type must be consistent.');
-      _intersect(a, arguments[i], check, maxDepth);
-    }
+      for (var i = 1, l = arguments.length; i < l; i++) {
+        if (check !== checkObj(arguments[i])) throw new Error('Arguments\'s type must be consistent.');
+        _intersect(a, arguments[i], check, maxDepth);
+      }
+    } else throw new Error('Not a array or object.');
     return a;
   }
 
@@ -155,6 +156,37 @@
     return a;
   }
 
+  function isEqual(a, b, depth) {
+    if (a === b) return true;
+    var check = checkObj(a);
+    if (check !== checkObj(b)) return false;
+    if (check === ARRAY || check === OBJECT) return _equalObj(a, b, check, depth > 0 ? depth : maxDepth);
+    return true;
+  }
+
+  function _equalObj(a, b, check, depth) {
+    if (--depth <= 0) throw new Error('Maximum structure depth exceeded.');
+    var equal = true;
+    if (check === ARRAY && a.length !== b.length) return false;
+    if (check === OBJECT && a.prototype !== b.prototype) return false;
+
+    each(a, function (x, i) {
+      if (hasOwnProperty.call(b, i)) return;
+      equal = false;
+      return BREAKER;
+    }, null, false);
+
+    if (equal) {
+      each(b, function (x, i) {
+        if (isEqual(x, a[i], depth)) return;
+        equal = false;
+        return BREAKER;
+      }, null, false);
+    }
+
+    return equal;
+  }
+
   function removeItem(list, item, arrayLike) {
     var removed = 0;
 
@@ -190,9 +222,10 @@
 
   return {
     NAME: 'JSONKit',
-    VERSION: '0.1.2',
+    VERSION: '0.2.0',
     each: each,
     union: union,
+    isEqual: isEqual,
     intersect: intersect,
     removeItem: removeItem,
     uniqueArray: uniqueArray,

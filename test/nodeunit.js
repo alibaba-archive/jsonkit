@@ -237,6 +237,31 @@ exports.JSONKit = function (test) {
 
   test.strictEqual(err.message, 'Arguments\'s type must be consistent.');
 
+  // 测试 isEqual
+
+  test.strictEqual(JSONKit.isEqual(objTpl, JSONKit.union(objTpl)), true);
+  test.strictEqual(JSONKit.isEqual([1, 2, [3, 4, [5, {a: 6}]]], [1, 2, [3, '4', [5, {a: 6}]]]), false);
+  test.strictEqual(JSONKit.isEqual({a: 1, b: [2, 3], c: {d: 4}}, {a: 1, b: [2, 3], c: {d: 4}}), true);
+
+  a = [1, 2, 3, 4];
+  b = [1, 2, 3, 4];
+  b.a = null;
+  test.strictEqual(JSONKit.isEqual(a, b), false);
+
+  a = {a: 1, b: [1, 2, new Date()]};
+  b = JSONKit.union(a);
+  test.strictEqual(JSONKit.isEqual(a, b), true);
+
+  a = {};
+  a.x = a;
+  b = {};
+  b.x = b;
+  try {
+    JSONKit.isEqual(a, b);
+  } catch (e) {
+    err = e;
+  }
+  test.strictEqual(err.message, 'Maximum structure depth exceeded.');
   test.done();
 
 };
