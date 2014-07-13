@@ -222,15 +222,19 @@
 
   return {
     NAME: 'JSONKit',
-    VERSION: '0.2.0',
+    VERSION: '0.2.1',
     each: each,
     union: union,
+    isEmpty: isEmpty,
     isEqual: isEqual,
+    isArray: isArray,
+    isObject: isObject,
     intersect: intersect,
     removeItem: removeItem,
     uniqueArray: uniqueArray,
     setMaxDepth: function (depth) {
       maxDepth = depth >= 5 && depth <= 1000 ? +depth : 20;
+      return maxDepth;
     }
   };
 

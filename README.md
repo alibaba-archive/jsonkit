@@ -1,4 +1,4 @@
-JSONKit v0.2.0 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
+JSONKit v0.2.1 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
 ====
 Tool set for JSON object.
 
@@ -79,15 +79,43 @@ Tool set for JSON object.
 
 ### JSONKit.isEqual(a, b[, depth])
 
-对 a, b 进行深度对比，判断他们是否相等。
+对 a, b 进行深度对比，判断他们是否相等，返回 Boolean 值。
 
 + **a:** Any
 + **b:** Any
-+ **depth:** 可选，指定比较的最大深度，超过时将抛出错误，默认为 20。
++ **depth:** 可选，指定比较的最大深度，超过时将抛出错误，默认为 20 或 setMaxDepth 的设置值。
 
 		var a = {a: 1, b: 2, c: 3, d: [1, 2, 3], e: null};
 		var b = {a: 1, b: 2, c: 3, d: [1, 2, 3], e: null};
 		console.log('isEqual', JSONKit.isEqual(a, b));
+
+### JSONKit.isEmpty(obj)
+
+判断对象是否为空，返回 Boolean 值，对于非对象，返回 true。
+
++ **obj:** Any
+
+		console.log('isEmpty', JSONKit.isEmpty([]));
+		console.log('isEmpty', JSONKit.isEmpty({}));
+
+### JSONKit.isArray(obj)
+
+判断是否为数组，返回 Boolean 值。
+
++ **obj:** Any
+
+		console.log('isArray', JSONKit.isArray([]));
+		console.log('isArray', JSONKit.isArray([]));
+
+### JSONKit.isObject(obj)
+
+判断是否为纯对象，返回 Boolean 值。
+
++ **obj:** Any
+
+		console.log('isObject', JSONKit.isObject({}));
+		console.log('isObject', JSONKit.isObject([]));
+		console.log('isObject', JSONKit.isObject(new Date()));
 
 ### JSONKit.removeItem(list, item, arrayLike)
 
@@ -114,7 +142,7 @@ Tool set for JSON object.
 
 ### JSONKit.setMaxDepth(depth)
 
-设置 union 或 intersect 中允许的对象最大深度，超过时将抛出错误，用于防止对象循环自引用，默认为 20，最小为 5，最大为 1000。
+设置 union 或 intersect 中允许的对象最大深度，超过时将抛出错误，用于防止对象循环自引用，默认为 20，最小为 5，最大为 1000，返回当前最大深度值。
 
 + **depth:** Number
 
