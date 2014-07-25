@@ -103,6 +103,12 @@ exports.JSONKit = function (test) {
   test.strictEqual(JSONKit.removeItem(a, x), 2);
   test.deepEqual(a, {a: 1, b: 2});
 
+  a = [1, 2, 3, 4, 5];
+  JSONKit.removeItem(a, function (x) {
+    return x % 2;
+  });
+  test.deepEqual(a, [2, 4]);
+
   // 测试 uniqueArray
 
   a = [1, 1, 2, 3, '1', null, null];

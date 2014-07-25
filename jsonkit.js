@@ -188,17 +188,21 @@
   }
 
   function removeItem(list, item, arrayLike) {
-    var removed = 0;
+    var isEqual, removed = 0;
+
+    isEqual = typeof item === 'function' ? item : function (x) {
+      return item === x;
+    };
 
     if (arrayLike || isArray(list)) {
       each(list, function (x, i) {
-        if (x !== item) return;
+        if (!isEqual(x, i)) return;
         list.splice(i, 1);
         removed += 1;
       }, null, true, true);
     } else {
       each(list, function (x, i) {
-        if (x !== item) return;
+        if (!isEqual(x, i)) return;
         delete list[i];
         removed += 1;
       });

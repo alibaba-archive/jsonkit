@@ -1,4 +1,4 @@
-JSONKit v0.2.1 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
+JSONKit v0.2.2 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
 ====
 Tool set for JSON object.
 
@@ -122,7 +122,12 @@ Tool set for JSON object.
 删除 list 中的所有 item，直接修改 list 自身，返回已删除 item 的数量。
 
 + **list:** Array 或 Object
-+ **item:** Any
++ **item:** Any, 当 item 为函数时，会调用该函数
+
+        item(value, index)
+
+    如果其返回值为 true，则删除 list 中的对应值。
+
 + **arrayLike:** Boolean, 为 true 时按数组迭代，为 false 则按对象迭代，否则自动判断
 
 		var a = [1, 2, 3, null, null];
