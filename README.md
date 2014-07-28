@@ -1,4 +1,4 @@
-JSONKit v0.2.2 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
+JSONKit v0.2.3 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
 ====
 Tool set for JSON object.
 
@@ -127,6 +127,26 @@ Tool set for JSON object.
         item(value, index)
 
     如果其返回值为 true，则删除 list 中的对应值。
+
++ **arrayLike:** Boolean, 为 true 时按数组迭代，为 false 则按对象迭代，否则自动判断
+
+		var a = [1, 2, 3, null, null];
+		console.log('removeItem', JSONKit.removeItem(a, null), a);
+
+		var b = {a: 1, b: 2, c: 3, d: null, e: null};
+		console.log('removeItem', JSONKit.removeItem(b, null), b);
+
+### JSONKit.findItem(list, fn, arrayLike)
+
+从 list 中找出目标值。
+
++ **list:** Array 或 Object
++ **fn:** 断言函数，该函数有三个参数：list 子元素的值、键和 list 自身，如果 fn 返回 true，则为找到目标值，立即返回目标值，不再往后迭代。
+
+        a = [1, 1, 2, 3, '1', null, null];
+        JSONKit.findItem(a, function (x, i) {
+          return typeof v === 'string';
+        }); // '1'
 
 + **arrayLike:** Boolean, 为 true 时按数组迭代，为 false 则按对象迭代，否则自动判断
 

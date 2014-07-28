@@ -109,6 +109,20 @@ exports.JSONKit = function (test) {
   });
   test.deepEqual(a, [2, 4]);
 
+  // 测试 findItem
+
+  a = {a: 1, b: 2, c: x, d: x, e: null};
+
+  test.strictEqual(JSONKit.findItem(a, function (v, i) {
+    return v === x;
+  }), x);
+
+  a = [1, 1, 2, 3, '1', null, null];
+
+  test.strictEqual(JSONKit.findItem(a, function (v, i) {
+    return typeof v === 'string';
+  }), '1');
+
   // 测试 uniqueArray
 
   a = [1, 1, 2, 3, '1', null, null];

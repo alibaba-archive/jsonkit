@@ -210,6 +210,18 @@
     return removed;
   }
 
+  function findItem(list, fn, arrayLike) {
+    var result;
+
+    each(list, function (x, i) {
+      if (fn(x, i, list) !== true) return;
+      result = x;
+      return BREAKER;
+    }, null, arrayLike);
+    return result;
+  }
+
+
   function uniqueArray(array) {
     var flag = {};
 
@@ -227,13 +239,14 @@
   return {
     NAME: 'JSONKit',
     VERSION: '0.2.1',
-    each: each,
-    union: union,
     isEmpty: isEmpty,
     isEqual: isEqual,
     isArray: isArray,
     isObject: isObject,
+    each: each,
+    union: union,
     intersect: intersect,
+    findItem: findItem,
     removeItem: removeItem,
     uniqueArray: uniqueArray,
     setMaxDepth: function (depth) {
