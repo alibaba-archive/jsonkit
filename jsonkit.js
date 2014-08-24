@@ -16,10 +16,10 @@
 }(this, function () {
   'use strict';
 
-  var maxDepth = 20, BREAKER = {}, ARRAY = [], OBJECT = {},
-    toString = Object.prototype.toString,
-    hasOwnProperty = Object.prototype.hasOwnProperty,
-    isArray = Array.isArray || function (obj) {
+  var maxDepth = 20, BREAKER = {}, ARRAY = [], OBJECT = {};
+  var toString = Object.prototype.toString;
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  var isArray = Array.isArray || function (obj) {
       return toString.call(obj) === '[object Array]';
     };
 
@@ -98,6 +98,24 @@
     return a;
   }
 
+  function extend(obj) {
+    var arrayLike = isArray(obj);
+
+    function _set(value, key) {
+      obj[key] = value;
+    }
+
+    for (var i = 1, l = arguments.length; i < l; i++)
+      each(arguments[i], _set, null, arrayLike);
+    return obj;
+  }
+
+  function _extend(obj, src, arrayLike) {
+    each(src, function (value, key) {
+      obj[key] = value;
+    }, null, arrayLike);
+  }
+
   function intersect(a, b) {
     var check = checkObj(a);
 
@@ -105,7 +123,8 @@
       if (arguments.length < 2) throw new Error('Must have 2 arguments or more.');
 
       for (var i = 1, l = arguments.length; i < l; i++) {
-        if (check !== checkObj(arguments[i])) throw new Error('Arguments\'s type must be consistent.');
+        if (check !== checkObj(arguments[i]))
+          throw new Error('Arguments\'s type must be consistent.');
         _intersect(a, arguments[i], check, maxDepth);
       }
     } else throw new Error('Not a array or object.');
@@ -160,7 +179,8 @@
     if (a === b) return true;
     var check = checkObj(a);
     if (check !== checkObj(b)) return false;
-    if (check === ARRAY || check === OBJECT) return _equalObj(a, b, check, depth > 0 ? depth : maxDepth);
+    if (check === ARRAY || check === OBJECT)
+      return _equalObj(a, b, check, depth > 0 ? depth : maxDepth);
     return true;
   }
 
@@ -236,19 +256,27 @@
     return array;
   }
 
+  function parseJSON(str) {
+    try {
+      return JSON.parse(str);
+    } catch (e) {}
+  }
+
   return {
     NAME: 'JSONKit',
-    VERSION: '0.2.1',
+    VERSION: '0.3.0',
     isEmpty: isEmpty,
     isEqual: isEqual,
     isArray: isArray,
     isObject: isObject,
     each: each,
     union: union,
+    extend: extend,
     intersect: intersect,
     findItem: findItem,
     removeItem: removeItem,
     uniqueArray: uniqueArray,
+    parseJSON: parseJSON,
     setMaxDepth: function (depth) {
       maxDepth = depth >= 5 && depth <= 1000 ? +depth : 20;
       return maxDepth;

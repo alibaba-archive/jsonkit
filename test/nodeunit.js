@@ -144,6 +144,12 @@ exports.JSONKit = function (test) {
   test.strictEqual(JSONKit.union(a, [1, 1, 1], {}, null, [2, 2, 2, 4, 5, 5, {}, []], {}), a);
   test.deepEqual(a, [2, 2, 2, 4, 5, 5, {}, [], {}, {}, {}]);
 
+  // 测试 extend
+
+  a = {a: 1, b: 2};
+
+  test.deepEqual(JSONKit.extend(a, {b: 3, c: 4}, {c: 5}), {a: 1, b: 3, c: 5});
+
   // 测试 union
 
   test.deepEqual(JSONKit.union(objTpl), JSON.parse(JSON.stringify(objTpl)));
@@ -282,6 +288,17 @@ exports.JSONKit = function (test) {
     err = e;
   }
   test.strictEqual(err.message, 'Maximum structure depth exceeded.');
+
+  // 测试 parseJSON
+
+  test.deepEqual(JSONKit.parseJSON('{}'), {});
+  test.deepEqual(JSONKit.parseJSON('[1, 2, 3]'), [1, 2, 3]);
+  test.strictEqual(JSONKit.parseJSON('1'), 1);
+  test.strictEqual(JSONKit.parseJSON('"1"'), '1');
+  test.strictEqual(JSONKit.parseJSON('a'), undefined);
+  test.strictEqual(JSONKit.parseJSON('null'), null);
+  test.strictEqual(JSONKit.parseJSON('undefined'), undefined);
+
   test.done();
 
 };
