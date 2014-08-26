@@ -262,13 +262,23 @@
     } catch (e) {}
   }
 
+  function toStr(value) {
+    return value == null ? '' : value + '';
+  }
+
+  function toNum(value) {
+    return parseFloat(value);
+  }
+
   return {
     NAME: 'JSONKit',
-    VERSION: '0.3.0',
+    VERSION: '0.3.1',
     isEmpty: isEmpty,
     isEqual: isEqual,
     isArray: isArray,
     isObject: isObject,
+    toStr: toStr,
+    toNum: toNum,
     each: each,
     union: union,
     extend: extend,
