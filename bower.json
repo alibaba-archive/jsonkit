@@ -2,7 +2,7 @@
   "name": "jsonkit",
   "description": "Tool set for JSON object",
   "main": "jsonkit.js",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "homepage": "https://github.com/teambition/jsonkit",
   "authors": [
     "Yan Qing <admin@zensh.com>"

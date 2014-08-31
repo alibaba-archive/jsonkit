@@ -1,4 +1,4 @@
-JSONKit v0.3.0 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
+JSONKit v0.3.2 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
 ====
 Tool set for JSON object.
 
@@ -203,6 +203,22 @@ console.log('uniqueArray', JSONKit.uniqueArray(c), c);
 ```
 
 ### JSONKit.parseJSON(string)
+
+解析 JSON 字符串 string，返回解析值，如果 string 不是标准 JSON，不可解析，则返回 `undefined`。
+
++ **string:** `String`
+
+### JSONKit.toStr(any)
+
+```js
+console.log('JSONKit.toStr(null)', JSONKit.toStr(null)); // ''
+console.log('JSONKit.toStr(undefined)', JSONKit.toStr(undefined)); // ''
+console.log('JSONKit.toStr(0)', JSONKit.toStr(0)); // '0'
+console.log('JSONKit.toStr(NaN)', JSONKit.toStr(NaN)); // 'NaN'
+console.log('JSONKit.toStr(true)', JSONKit.toStr(true)); // 'true'
+```
+
+### JSONKit.toNum(any)
 
 解析 JSON 字符串 string，返回解析值，如果 string 不是标准 JSON，不可解析，则返回 `undefined`。
 

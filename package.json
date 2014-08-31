@@ -4,7 +4,7 @@
   "author": [
     "Yan Qing <admin@zensh.com>"
   ],
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "jsonkit.js",
   "repository": {
     "type": "git",

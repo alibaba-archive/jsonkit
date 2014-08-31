@@ -299,6 +299,13 @@ exports.JSONKit = function (test) {
   test.strictEqual(JSONKit.parseJSON('null'), null);
   test.strictEqual(JSONKit.parseJSON('undefined'), undefined);
 
+  // 测试 toStr
+  test.strictEqual(JSONKit.toStr(null), '');
+  test.strictEqual(JSONKit.toStr(undefined), ''); // ''
+  test.strictEqual(JSONKit.toStr(0), '0'); // '0'
+  test.strictEqual(JSONKit.toStr(NaN), 'NaN'); // 'NaN'
+  test.strictEqual(JSONKit.toStr(true), 'true'); // 'true'
+
   test.done();
 
 };

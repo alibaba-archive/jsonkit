@@ -13,12 +13,11 @@
   } else {
     root.JSONKit = factory();
   }
-}(this, function () {
+}(typeof window === 'object' ? window : this, function () {
   'use strict';
 
   var maxDepth = 20, BREAKER = {}, ARRAY = [], OBJECT = {};
   var toString = Object.prototype.toString;
-  var hasOwnProperty = Object.prototype.hasOwnProperty;
   var isArray = Array.isArray || function (obj) {
       return toString.call(obj) === '[object Array]';
     };
@@ -29,7 +28,7 @@
 
   function isEmpty(obj) {
     if (!obj) return true;
-    for (var key in obj) return !hasOwnProperty.call(obj, key);
+    for (var key in obj) return !obj.hasOwnProperty(key);
     return true;
   }
 
@@ -50,7 +49,7 @@
       }
     } else {
       for (key in obj) {
-        if (!hasOwnProperty.call(obj, key)) continue;
+        if (!obj.hasOwnProperty(key)) continue;
         if (iterator.call(context, obj[key], key, obj) === BREAKER) return;
       }
     }
@@ -150,7 +149,7 @@
       }, null, true);
     } else {
       each(a, function (x, i) {
-        if (!hasOwnProperty.call(b, i) || (x !== null && typeof x !== typeof b[i])) {
+        if (!b.hasOwnProperty(i) || (x !== null && typeof x !== typeof b[i])) {
           if (check === ARRAY) a[i] = null;
           else delete a[i];
           return;
@@ -191,7 +190,7 @@
     if (check === OBJECT && a.prototype !== b.prototype) return false;
 
     each(a, function (x, i) {
-      if (hasOwnProperty.call(b, i)) return;
+      if (b.hasOwnProperty(i)) return;
       equal = false;
       return BREAKER;
     }, null, false);
@@ -263,7 +262,7 @@
   }
 
   function toStr(value) {
-    return value == null ? '' : value + '';
+    return value == null ? '' : String(value);
   }
 
   function toNum(value) {
@@ -272,7 +271,7 @@
 
   return {
     NAME: 'JSONKit',
-    VERSION: '0.3.1',
+    VERSION: '0.3.2',
     isEmpty: isEmpty,
     isEqual: isEqual,
     isArray: isArray,
