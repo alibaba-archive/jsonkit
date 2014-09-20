@@ -1,4 +1,4 @@
-JSONKit v0.3.2 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
+JSONKit v0.3.3 [![Build Status](https://travis-ci.org/teambition/jsonkit.png?branch=master)](https://travis-ci.org/teambition/jsonkit)
 ====
 Tool set for JSON object.
 
@@ -238,4 +238,3 @@ console.log('parseJSON', JSONKit.parseJSON('undefined')); // undefined
 设置 `union` 或 `intersect `中允许的对象最大深度，超过时将抛出错误，用于防止对象循环自引用，默认为 20，最小为 5，最大为 1000，返回当前最大深度值。
 
 + **depth:** Number
-

@@ -21,6 +21,8 @@
   var isArray = Array.isArray || function (obj) {
       return toString.call(obj) === '[object Array]';
     };
+  var exceededErr = 'Maximum structure depth exceeded.',
+    typeErr = 'Not a array or object.';
 
   function isObject(obj) {
     return toString.call(obj) === '[object Object]';
@@ -79,12 +81,12 @@
       for (var i = 2, l = arguments.length; i < l; i++) {
         _union(a, arguments[i], check, maxDepth);
       }
-    } else throw new Error('Not a array or object.');
+    } else throw new Error(typeErr);
     return a;
   }
 
   function _union(a, b, check, depth) {
-    if (--depth <= 0) throw new Error('Maximum structure depth exceeded.');
+    if (--depth <= 0) throw new Error(exceededErr);
     if (a === b || check !== checkObj(b)) return a;
 
     each(b, function (x, i) {
@@ -126,12 +128,12 @@
           throw new Error('Arguments\'s type must be consistent.');
         _intersect(a, arguments[i], check, maxDepth);
       }
-    } else throw new Error('Not a array or object.');
+    } else throw new Error(typeErr);
     return a;
   }
 
   function _intersect(a, b, check, depth) {
-    if (--depth <= 0) throw new Error('Maximum structure depth exceeded.');
+    if (--depth <= 0) throw new Error(exceededErr);
     if (a === b) return a;
 
     if (isEmpty(a)) return union(a, b);
@@ -184,7 +186,7 @@
   }
 
   function _equalObj(a, b, check, depth) {
-    if (--depth <= 0) throw new Error('Maximum structure depth exceeded.');
+    if (--depth <= 0) throw new Error(exceededErr);
     var equal = true;
     if (check === ARRAY && a.length !== b.length) return false;
     if (check === OBJECT && a.prototype !== b.prototype) return false;
@@ -271,7 +273,7 @@
 
   return {
     NAME: 'JSONKit',
-    VERSION: '0.3.2',
+    VERSION: '0.3.3',
     isEmpty: isEmpty,
     isEqual: isEqual,
     isArray: isArray,
