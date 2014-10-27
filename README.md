@@ -201,12 +201,15 @@ JSONKit.findItem(a, function (x, i) {
 var c = [1, 2, 3, 4, 3, 2];
 console.log('uniqueArray', JSONKit.uniqueArray(c), c);
 ```
+### JSONKit.toNum(any)
 
-### JSONKit.parseJSON(string)
-
-解析 JSON 字符串 string，返回解析值，如果 string 不是标准 JSON，不可解析，则返回 `undefined`。
-
-+ **string:** `String`
+```js
+console.log('JSONKit.toNum("1.5w")', JSONKit.toNum('1.5w')); // 1.5
+console.log('JSONKit.toNum(undefined)', JSONKit.toNum(undefined)); // Nan
+console.log('JSONKit.toNum(100)', JSONKit.toNum(0)); // 100
+console.log('JSONKit.toNum(NaN)', JSONKit.toNum(NaN)); // NaN
+console.log('JSONKit.toNum(true)', JSONKit.toNum(true)); // NaN
+```
 
 ### JSONKit.toStr(any)
 
@@ -218,7 +221,7 @@ console.log('JSONKit.toStr(NaN)', JSONKit.toStr(NaN)); // 'NaN'
 console.log('JSONKit.toStr(true)', JSONKit.toStr(true)); // 'true'
 ```
 
-### JSONKit.toNum(any)
+### JSONKit.parseJSON(string)
 
 解析 JSON 字符串 string，返回解析值，如果 string 不是标准 JSON，不可解析，则返回 `undefined`。
 
